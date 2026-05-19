@@ -367,8 +367,7 @@ struct ElapsedTimerText: View {
       Text(
         timerInterval: startTime ... Date.distantFuture,
         pauseTime: nil,
-        countsDown: false,
-        showsHours: true
+        countsDown: false
       )
       if let label = durationLabel {
         Text("/ \(label)")
