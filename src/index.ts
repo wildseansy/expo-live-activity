@@ -9,6 +9,7 @@ export type DynamicIslandTimerType = 'circular' | 'digital'
 
 export type ElapsedTimer = {
   startDate: number // milliseconds timestamp (past time when timer started)
+  endDate?: number // when set: shows animated progress bar + "elapsed / duration" label
 }
 
 type ProgressBarType =
@@ -30,13 +31,6 @@ type ProgressBarType =
       date?: undefined
       progress?: undefined
       elapsedTimer?: ElapsedTimer
-      currentStep?: undefined
-      totalSteps?: undefined
-    }
-  | {
-      date?: undefined
-      progress: number
-      elapsedTimer: ElapsedTimer
       currentStep?: undefined
       totalSteps?: undefined
     }
