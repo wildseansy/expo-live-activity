@@ -12,6 +12,7 @@ public struct LiveActivityAttributes: ActivityAttributes {
     var dynamicIslandImageName: String?
     var smallImageName: String?
     var elapsedTimerStartDateInMilliseconds: Double?
+    var elapsedTimerEndDateInMilliseconds: Double?
     var currentStep: Int?
     var totalSteps: Int?
 
@@ -24,6 +25,7 @@ public struct LiveActivityAttributes: ActivityAttributes {
       dynamicIslandImageName: String? = nil,
       smallImageName: String? = nil,
       elapsedTimerStartDateInMilliseconds: Double? = nil,
+      elapsedTimerEndDateInMilliseconds: Double? = nil,
       currentStep: Int? = nil,
       totalSteps: Int? = nil
     ) {
@@ -35,6 +37,7 @@ public struct LiveActivityAttributes: ActivityAttributes {
       self.dynamicIslandImageName = dynamicIslandImageName
       self.smallImageName = smallImageName
       self.elapsedTimerStartDateInMilliseconds = elapsedTimerStartDateInMilliseconds
+      self.elapsedTimerEndDateInMilliseconds = elapsedTimerEndDateInMilliseconds
       self.currentStep = currentStep
       self.totalSteps = totalSteps
     }
