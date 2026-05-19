@@ -364,18 +364,26 @@ struct ElapsedTimerText: View {
   }
 
   var body: some View {
-    HStack(spacing: 4) {
+    if let label = durationLabel {
+      HStack {
+        Text(
+          timerInterval: startTime ... Date.distantFuture,
+          pauseTime: nil,
+          countsDown: false
+        )
+        Spacer(minLength: 8)
+        Text(label)
+      }
+      .monospacedDigit()
+      .foregroundStyle(color ?? .primary)
+    } else {
       Text(
         timerInterval: startTime ... Date.distantFuture,
         pauseTime: nil,
         countsDown: false
       )
-      if let label = durationLabel {
-        Spacer(minLength: 8)
-        Text(label)
-      }
+      .monospacedDigit()
+      .foregroundStyle(color ?? .primary)
     }
-    .monospacedDigit()
-    .foregroundStyle(color ?? .primary)
   }
 }
