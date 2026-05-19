@@ -81,9 +81,8 @@ struct LiveActivityMediumView: View {
                 HStack(spacing: 4) {
                   ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
                   Text("/ \(formattedDuration(startMs: startDate, endMs: endDate))")
-                    .foregroundStyle(labelColor ?? .primary)
                 }
-                .monospacedDigit()
+                .foregroundStyle(labelColor ?? .primary)
                 .font(.title3)
                 .fontWeight(.medium)
               } else {
@@ -130,9 +129,8 @@ struct LiveActivityMediumView: View {
             HStack(spacing: 4) {
               ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
               Text("/ \(formattedDuration(startMs: startDate, endMs: endDate))")
-                .foregroundStyle(labelColor ?? .primary)
             }
-            .monospacedDigit()
+            .foregroundStyle(labelColor ?? .primary)
             .font(.title2)
             .fontWeight(.semibold)
             .frame(maxWidth: .infinity, alignment: .leading)

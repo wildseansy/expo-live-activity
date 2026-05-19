@@ -107,9 +107,8 @@ import WidgetKit
                     HStack(spacing: 4) {
                       ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
                       Text("/ \(durationLabel)")
-                        .foregroundStyle(labelColor ?? .primary)
                     }
-                    .monospacedDigit()
+                    .foregroundStyle(labelColor ?? .primary)
                     .font(font)
                     .fontWeight(carPlayView && !isSubtitleDisplayed ? .semibold : .medium)
                     .padding(.top, isSubtitleDisplayed ? 3 : 0)
