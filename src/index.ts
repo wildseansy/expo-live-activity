@@ -35,6 +35,13 @@ type ProgressBarType =
     }
   | {
       date?: undefined
+      progress: number
+      elapsedTimer: ElapsedTimer
+      currentStep?: undefined
+      totalSteps?: undefined
+    }
+  | {
+      date?: undefined
       progress?: undefined
       elapsedTimer?: undefined
       currentStep?: number

@@ -111,6 +111,11 @@ struct LiveActivityMediumView: View {
           .fontWeight(.semibold)
           .frame(maxWidth: .infinity, alignment: .leading)
           .padding(.top, 4)
+          if let progress = contentState.progress {
+            ProgressView(value: progress)
+              .tint(progressViewTint)
+              .padding(.top, 2)
+          }
         } else if let date = contentState.timerEndDateInMilliseconds {
           ProgressView(timerInterval: Date.toTimerInterval(miliseconds: date))
             .tint(progressViewTint)
