@@ -134,6 +134,7 @@ struct LiveActivityMediumView: View {
         }
       }
     }
+    .frame(maxWidth: .infinity, alignment: .leading)
     .padding(padding)
   }
 }
