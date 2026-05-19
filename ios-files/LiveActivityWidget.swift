@@ -371,8 +371,8 @@ struct ElapsedTimerText: View {
         countsDown: false
       )
       if let label = durationLabel {
-        Text("/ \(label)")
-          .layoutPriority(1)
+        Spacer(minLength: 8)
+        Text(label)
       }
     }
     .monospacedDigit()
