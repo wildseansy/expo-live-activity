@@ -365,16 +365,14 @@ struct ElapsedTimerText: View {
 
   var body: some View {
     HStack(spacing: 4) {
-      // Use Text with timerInterval for Live Activities - iOS handles the updates automatically
-      // The range goes from startTime to a far future date, with countsDown: false to count UP
       Text(
         timerInterval: startTime ... Date.distantFuture,
         pauseTime: nil,
         countsDown: false
       )
-      .fixedSize()
       if let label = durationLabel {
         Text("/ \(label)")
+          .layoutPriority(1)
       }
     }
     .monospacedDigit()
