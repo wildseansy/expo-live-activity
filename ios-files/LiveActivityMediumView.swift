@@ -27,17 +27,6 @@ struct LiveActivityMediumView: View {
     attributes.progressViewTint.map { Color(hex: $0) }
   }
 
-  private func formattedDuration(startMs: Double, endMs: Double) -> String {
-    let totalSeconds = Int((endMs - startMs) / 1000)
-    let hours = totalSeconds / 3600
-    let minutes = (totalSeconds % 3600) / 60
-    let seconds = totalSeconds % 60
-    if hours > 0 {
-      return String(format: "%d:%02d:%02d", hours, minutes, seconds)
-    }
-    return String(format: "%d:%02d", minutes, seconds)
-  }
-
   var body: some View {
     let padding = attributes.resolvedPadding(defaultPadding: 24)
 
@@ -76,20 +65,13 @@ struct LiveActivityMediumView: View {
                 inactiveColor: attributes.segmentInactiveColor
               )
             } else if let startDate = contentState.elapsedTimerStartDateInMilliseconds {
-              let labelColor = attributes.progressViewLabelColor.map { Color(hex: $0) }
-              if let endDate = contentState.elapsedTimerEndDateInMilliseconds {
-                HStack(spacing: 4) {
-                  ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
-                  Text("/ \(formattedDuration(startMs: startDate, endMs: endDate))")
-                }
-                .foregroundStyle(labelColor ?? .primary)
-                .font(.title3)
-                .fontWeight(.medium)
-              } else {
-                ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
-                  .font(.title3)
-                  .fontWeight(.medium)
-              }
+              ElapsedTimerText(
+                startTimeMilliseconds: startDate,
+                endTimeMilliseconds: contentState.elapsedTimerEndDateInMilliseconds,
+                color: attributes.progressViewLabelColor.map { Color(hex: $0) }
+              )
+              .font(.title3)
+              .fontWeight(.medium)
             } else if let date = contentState.timerEndDateInMilliseconds {
               ProgressView(timerInterval: Date.toTimerInterval(miliseconds: date))
                 .tint(progressViewTint)
@@ -122,33 +104,24 @@ struct LiveActivityMediumView: View {
             inactiveColor: attributes.segmentInactiveColor
           )
         } else if let startDate = contentState.elapsedTimerStartDateInMilliseconds {
-          let labelColor = attributes.progressViewLabelColor.map { Color(hex: $0) }
+          ElapsedTimerText(
+            startTimeMilliseconds: startDate,
+            endTimeMilliseconds: contentState.elapsedTimerEndDateInMilliseconds,
+            color: attributes.progressViewLabelColor.map { Color(hex: $0) }
+          )
+          .font(.title2)
+          .fontWeight(.semibold)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.top, 4)
           if let endDate = contentState.elapsedTimerEndDateInMilliseconds {
-            let startD = Date(timeIntervalSince1970: startDate / 1000)
-            let endD = Date(timeIntervalSince1970: endDate / 1000)
-            HStack(spacing: 4) {
-              ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
-              Text("/ \(formattedDuration(startMs: startDate, endMs: endDate))")
-            }
-            .foregroundStyle(labelColor ?? .primary)
-            .font(.title2)
-            .fontWeight(.semibold)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 4)
             styledLinearProgressView(tint: progressViewTint, labelColor: attributes.progressViewLabelColor) {
               ProgressView(
-                timerInterval: startD...endD,
+                timerInterval: Date(timeIntervalSince1970: startDate / 1000)...Date(timeIntervalSince1970: endDate / 1000),
                 countsDown: false,
                 label: { EmptyView() },
                 currentValueLabel: { EmptyView() }
               )
             }
-          } else {
-            ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
-              .font(.title2)
-              .fontWeight(.semibold)
-              .frame(maxWidth: .infinity, alignment: .leading)
-              .padding(.top, 4)
           }
         } else if let date = contentState.timerEndDateInMilliseconds {
           ProgressView(timerInterval: Date.toTimerInterval(miliseconds: date))

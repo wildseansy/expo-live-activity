@@ -92,32 +92,16 @@ import WidgetKit
                 }
 
                 if let startDate = contentState.elapsedTimerStartDateInMilliseconds {
-                  let labelColor = attributes.progressViewLabelColor.map { Color(hex: $0) }
-                  let font: Font = carPlayView
+                  ElapsedTimerText(
+                    startTimeMilliseconds: startDate,
+                    endTimeMilliseconds: contentState.elapsedTimerEndDateInMilliseconds,
+                    color: attributes.progressViewLabelColor.map { Color(hex: $0) }
+                  )
+                  .font(carPlayView
                     ? (isSubtitleDisplayed ? .footnote : .title2)
-                    : (isSubtitleDisplayed ? .footnote : .callout)
-                  if let endDate = contentState.elapsedTimerEndDateInMilliseconds {
-                    let totalSeconds = Int((endDate - startDate) / 1000)
-                    let hours = totalSeconds / 3600
-                    let minutes = (totalSeconds % 3600) / 60
-                    let seconds = totalSeconds % 60
-                    let durationLabel = hours > 0
-                      ? String(format: "%d:%02d:%02d", hours, minutes, seconds)
-                      : String(format: "%d:%02d", minutes, seconds)
-                    HStack(spacing: 4) {
-                      ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
-                      Text("/ \(durationLabel)")
-                    }
-                    .foregroundStyle(labelColor ?? .primary)
-                    .font(font)
-                    .fontWeight(carPlayView && !isSubtitleDisplayed ? .semibold : .medium)
-                    .padding(.top, isSubtitleDisplayed ? 3 : 0)
-                  } else {
-                    ElapsedTimerText(startTimeMilliseconds: startDate, color: labelColor)
-                      .font(font)
-                      .fontWeight(carPlayView && !isSubtitleDisplayed ? .semibold : .medium)
-                      .padding(.top, isSubtitleDisplayed ? 3 : 0)
-                  }
+                    : (isSubtitleDisplayed ? .footnote : .callout))
+                  .fontWeight(carPlayView && !isSubtitleDisplayed ? .semibold : .medium)
+                  .padding(.top, isSubtitleDisplayed ? 3 : 0)
                 } else if let date = contentState.timerEndDateInMilliseconds, !isTimerShownAsText, !(carPlayView && isSubtitleDisplayed) {
                   smallTimerText(endDate: date, isSubtitleDisplayed: isSubtitleDisplayed, carPlayView: carPlayView, labelColor: attributes.progressViewLabelColor)
                 }
