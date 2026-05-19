@@ -359,7 +359,7 @@ struct ElapsedTimerText: View {
     let minutes = (totalSeconds % 3600) / 60
     let seconds = totalSeconds % 60
     return hours > 0
-      ? String(format: "%d:%02d:%02d", hours, minutes, seconds)
+      ? String(format: "%02d:%02d:%02d", hours, minutes, seconds)
       : String(format: "%d:%02d", minutes, seconds)
   }
 
@@ -372,6 +372,7 @@ struct ElapsedTimerText: View {
         pauseTime: nil,
         countsDown: false
       )
+      .fixedSize()
       if let label = durationLabel {
         Text("/ \(label)")
       }
